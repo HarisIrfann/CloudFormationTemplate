@@ -19,33 +19,33 @@ Furthermore, my solution incorporates best practices for IAM role management. Th
 To demonstrate the success of the AWS Config deletion process, the template includes an output value named "DeletionStatus," which provides real-time feedback to indicate that the AWS Config and Delivery Channel have been successfully deleted.
 
 
-# AWSTemplateFormatVersion: Specifies the CloudFormation template version.
+ AWSTemplateFormatVersion: Specifies the CloudFormation template version.
 
-# Parameters: Defines input parameters that can be provided when deploying the template:
+ Parameters: Defines input parameters that can be provided when deploying the template:
 
-# AccountNumber: A parameter of type string that represents the AWS account number where AWS Config is deployed.
-# Region: A parameter of type string that represents the AWS region where AWS Config is deployed.
-# Resources: Defines the AWS resources to be created:
+ AccountNumber: A parameter of type string that represents the AWS account number where AWS Config is deployed.
+ Region: A parameter of type string that represents the AWS region where AWS Config is deployed.
+ Resources: Defines the AWS resources to be created:
 
-# StackSet: Creates a StackSet resource, which is a container for stack instances across multiple accounts and regions.
+ StackSet: Creates a StackSet resource, which is a container for stack instances across multiple accounts and regions.
 
-# StackSetName: The name for the StackSet resource, set to "AWSConfigDeletionStackSet".
-# Description: A description for the StackSet resource.
-# PermissionModel: Specifies the permission model for the StackSet, set to "SERVICE_MANAGED".
-# TemplateBody: The content of the template for the StackSet, specified inline.
-# The template creates two resources:
-# DeleteConfigDeliveryChannel: Creates an AWS Config Delivery Channel resource with the specified properties:
-# DeliveryChannelName: The name of the delivery channel, set to "MyDeliveryChannel".
-# S3BucketName: The name of the S3 bucket for storing delivery channel data. Replace <YOUR_BUCKET_NAME> with the actual bucket name.
-# DeleteConfig: Creates an AWS Config Configuration Recorder resource with the specified properties:
-# Name: The name of the configuration recorder, set to "MyConfigRecorder".
-# Outputs: Defines an output value named "DeletionStatus" with a string value "AWS Config and Delivery Channel deleted successfully."
-# Parameters: Passes the parameter values specified earlier to the nested template.
-# Capabilities: Specifies the capabilities required for the StackSet, in this case "CAPABILITY_NAMED_IAM".
-# AdministrationRoleARN: The ARN of the IAM role used to administer the StackSet.
-# ExecutionRoleName: The name of the IAM role used by AWS Control Tower for managing StackSets.
-# DeleteAWSConfig: Creates another StackSet resource to manage the deletion of AWS Config resources.
+ StackSetName: The name for the StackSet resource, set to "AWSConfigDeletionStackSet".
+ Description: A description for the StackSet resource.
+ PermissionModel: Specifies the permission model for the StackSet, set to "SERVICE_MANAGED".
+ TemplateBody: The content of the template for the StackSet, specified inline.
+ The template creates two resources:
+ DeleteConfigDeliveryChannel: Creates an AWS Config Delivery Channel resource with the specified properties:
+ DeliveryChannelName: The name of the delivery channel, set to "MyDeliveryChannel".
+ S3BucketName: The name of the S3 bucket for storing delivery channel data. Replace <YOUR_BUCKET_NAME> with the actual bucket name.
+ DeleteConfig: Creates an AWS Config Configuration Recorder resource with the specified properties:
+ Name: The name of the configuration recorder, set to "MyConfigRecorder".
+ Outputs: Defines an output value named "DeletionStatus" with a string value "AWS Config and Delivery Channel deleted successfully."
+ Parameters: Passes the parameter values specified earlier to the nested template.
+ Capabilities: Specifies the capabilities required for the StackSet, in this case "CAPABILITY_NAMED_IAM".
+ AdministrationRoleARN: The ARN of the IAM role used to administer the StackSet.
+ ExecutionRoleName: The name of the IAM role used by AWS Control Tower for managing StackSets.
+ DeleteAWSConfig: Creates another StackSet resource to manage the deletion of AWS Config resources.
 
-# The properties and structure are similar to the previous StackSet resource.
-# Additionally, it sets the TemplateURL to the location of the delete-aws-config-template.yaml file, stored in an S3 bucket. Replace <YOUR_BUCKET_NAME> with the actual bucket name.
-# This CloudFormation template creates a StackSet and a DeleteAWSConfig StackSet resource. The StackSet resources manage the creation and deletion of AWS Config resources, including the delivery channel and configuration recorder. The template prompts for the AWS account number and region, and it requires the necessary IAM roles and permissions to manage StackSets.
+ The properties and structure are similar to the previous StackSet resource.
+ Additionally, it sets the TemplateURL to the location of the delete-aws-config-template.yaml file, stored in an S3 bucket. Replace <YOUR_BUCKET_NAME> with the actual bucket name.
+ This CloudFormation template creates a StackSet and a DeleteAWSConfig StackSet resource. The StackSet resources manage the creation and deletion of AWS Config resources,   including the delivery channel and configuration recorder. The template prompts for the AWS account number and region, and it requires the necessary IAM roles and permissions to manage StackSets.
